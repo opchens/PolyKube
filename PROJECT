@@ -17,4 +17,13 @@ resources:
   kind: Workload
   path: cloudkube/polykube/api/v1
   version: v1
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: poly
+  group: poly
+  kind: Application
+  path: cloudkube/polykube/api/v2
+  version: v2
 version: "3"

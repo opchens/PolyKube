@@ -35,6 +35,7 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/webhook"
 
 	polyv1 "cloudkube/polykube/api/v1"
+	polyv2 "cloudkube/polykube/api/v2"
 	"cloudkube/polykube/internal/controller"
 	//+kubebuilder:scaffold:imports
 )
@@ -48,6 +49,7 @@ func init() {
 	utilruntime.Must(clientgoscheme.AddToScheme(scheme))
 
 	utilruntime.Must(polyv1.AddToScheme(scheme))
+	utilruntime.Must(polyv2.AddToScheme(scheme))
 	//+kubebuilder:scaffold:scheme
 }
 
@@ -128,6 +130,13 @@ func main() {
 		Scheme: mgr.GetScheme(),
 	}).SetupWithManager(mgr); err != nil {
 		setupLog.Error(err, "unable to create controller", "controller", "Workload")
+		os.Exit(1)
+	}
+	if err = (&controller.ApplicationReconciler{
+		Client: mgr.GetClient(),
+		Scheme: mgr.GetScheme(),
+	}).SetupWithManager(mgr); err != nil {
+		setupLog.Error(err, "unable to create controller", "controller", "Application")
 		os.Exit(1)
 	}
 	//+kubebuilder:scaffold:builder
