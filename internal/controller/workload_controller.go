@@ -33,9 +33,9 @@ type WorkloadReconciler struct {
 	Scheme *runtime.Scheme
 }
 
-//+kubebuilder:rbac:groups=poly.poly,resources=workloads,verbs=get;list;watch;create;update;patch;delete
-//+kubebuilder:rbac:groups=poly.poly,resources=workloads/status,verbs=get;update;patch
-//+kubebuilder:rbac:groups=poly.poly,resources=workloads/finalizers,verbs=update
+//+kubebuilder:rbac:groups=poly.opchens,resources=workloads,verbs=get;list;watch;create;update;patch;delete
+//+kubebuilder:rbac:groups=poly.opchens,resources=workloads/status,verbs=get;update;patch
+//+kubebuilder:rbac:groups=poly.opchens,resources=workloads/finalizers,verbs=update
 
 // Reconcile is part of the main kubernetes reconciliation loop which aims to
 // move the current state of the cluster closer to the desired state.

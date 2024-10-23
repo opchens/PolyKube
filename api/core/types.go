@@ -17,19 +17,19 @@ const (
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 type ObjectReference struct {
 	// +optional
-	Kind string
+	Kind string `json:"kind"`
 	// +optional
-	Namespace string
+	Namespace string `json:"namespace"`
 	// +optional
-	Name string
+	Name string `json:"name"`
 	// +optional
-	UID types.UID
+	UID types.UID `json:"uid"`
 	// +optional
-	APIVersion string
+	APIVersion string `json:"apiVersion"`
 	// +optional
-	ResourceVersion string
+	ResourceVersion string `json:"resourceVersion"`
 
-	FieldPath string
+	FieldPath string `json:"fieldPath"`
 }
 
 // ResourceName is the name identifying various resources in a ResourceList.

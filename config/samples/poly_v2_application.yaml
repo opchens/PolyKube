@@ -1,9 +1,0 @@
-apiVersion: poly.poly/v2
-kind: Application
-metadata:
-  labels:
-    app.kubernetes.io/name: polykube
-    app.kubernetes.io/managed-by: kustomize
-  name: application-sample
-spec:
-  # TODO(user): Add fields here

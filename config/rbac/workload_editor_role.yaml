@@ -8,7 +8,7 @@ metadata:
   name: workload-editor-role
 rules:
 - apiGroups:
-  - poly.poly
+  - poly.opchens
   resources:
   - workloads
   verbs:
@@ -20,7 +20,7 @@ rules:
   - update
   - watch
 - apiGroups:
-  - poly.poly
+  - poly.opchens
   resources:
   - workloads/status
   verbs:

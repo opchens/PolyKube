@@ -8,7 +8,7 @@ metadata:
   name: workload-viewer-role
 rules:
 - apiGroups:
-  - poly.poly
+  - poly.opchens
   resources:
   - workloads
   verbs:
@@ -16,7 +16,7 @@ rules:
   - list
   - watch
 - apiGroups:
-  - poly.poly
+  - poly.opchens
   resources:
   - workloads/status
   verbs:

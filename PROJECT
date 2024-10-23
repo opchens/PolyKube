@@ -2,7 +2,7 @@
 # This file is used to track the info used to scaffold your project
 # and allow the plugins properly work.
 # More info: https://book.kubebuilder.io/reference/project-config.html
-domain: poly
+domain: opchens
 layout:
 - go.kubebuilder.io/v4
 projectName: polykube
@@ -12,18 +12,9 @@ resources:
     crdVersion: v1
     namespaced: true
   controller: true
-  domain: poly
+  domain: opchens
   group: poly
   kind: Workload
   path: cloudkube/polykube/api/v1
   version: v1
-- api:
-    crdVersion: v1
-    namespaced: true
-  controller: true
-  domain: poly
-  group: poly
-  kind: Application
-  path: cloudkube/polykube/api/v2
-  version: v2
 version: "3"

@@ -24,26 +24,26 @@ import (
 
 // WorkloadSpec defines the desired state of Workload
 type WorkloadSpec struct {
-	Type WorkloadType
+	Type WorkloadType `json:"type"`
 
 	// k8s raw definitions if type is k8s-object
-	K8SObject []runtime.RawExtension
+	K8SObject []runtime.RawExtension `json:"k8sObject"`
 
-	DestAffinity *Affinity
+	DestAffinity *Affinity `json:"destAffinity"`
 
-	SchedulerName string
+	SchedulerName string `json:"schedulerName"`
 
-	CheckFilters []K8SObject
+	CheckFilters []K8SObject `json:"checkFilters"`
 }
 
 // WorkloadStatus defines the observed state of Workload
 type WorkloadStatus struct {
-	Phase              WorkloadPhase
-	ObservedGeneration int64
-	Conditions         []WorkloadCondition
-	K8SObjectStatus    []K8SObjectStatus
+	Phase              WorkloadPhase       `json:"phase"`
+	ObservedGeneration int64               `json:"observedGeneration"`
+	Conditions         []WorkloadCondition `json:"conditions"`
+	K8SObjectStatus    []K8SObjectStatus   `json:"k8sObjectStatus"`
 
-	AllocatedResources core.ResourceList
+	AllocatedResources core.ResourceList `json:"allocatedResources"`
 }
 
 //+kubebuilder:object:root=true
@@ -75,36 +75,38 @@ const (
 
 // Affinity is a group of affinity scheduling rules.
 type Affinity struct {
-	WorkloadAffinity     *WorkloadAffinity
-	WorkloadAntiAffinity *WorkloadAntiAffinity
+	WorkloadAffinity     *WorkloadAffinity     `json:"workloadAffinity"`
+	WorkloadAntiAffinity *WorkloadAntiAffinity `json:"workloadAntiAffinity"`
 }
 
 type WorkloadAffinity struct {
-	RequiredDuringSchedulingIgnoredDuringExecution  []WorkloadAffinityTerm
-	PreferredDuringSchedulingIgnoredDuringExecution []WeightedWorkloadAffinityTerm
+	RequiredDuringSchedulingIgnoredDuringExecution  []WorkloadAffinityTerm         `json:"requiredDuringSchedulingIgnoredDuringExecution"`
+	PreferredDuringSchedulingIgnoredDuringExecution []WeightedWorkloadAffinityTerm `json:"preferredDuringSchedulingIgnoredDuringExecution"`
 }
 
 type WorkloadAntiAffinity struct {
-	RequiredDuringSchedulingIgnoredDuringExecution  []WorkloadAffinityTerm
-	PreferredDuringSchedulingIgnoredDuringExecution []WeightedWorkloadAffinityTerm
+	RequiredDuringSchedulingIgnoredDuringExecution  []WorkloadAffinityTerm         `json:"requiredDuringSchedulingIgnoredDuringExecution"`
+	PreferredDuringSchedulingIgnoredDuringExecution []WeightedWorkloadAffinityTerm `json:"preferredDuringSchedulingIgnoredDuringExecution"`
 }
 
 type WorkloadAffinityTerm struct {
-	LabelSelector     *metav1.LabelSelector
-	Namespaces        []string
-	TopologyKey       string
-	NamespaceSelector *metav1.LabelSelector
+	LabelSelector     *metav1.LabelSelector `json:"labelSelector"`
+	Namespaces        []string              `json:"namespaces"`
+	TopologyKey       string                `json:"topologyKey"`
+	NamespaceSelector *metav1.LabelSelector `json:"namespaceSelector"`
 }
 
 type WeightedWorkloadAffinityTerm struct {
 	// range 1-100
-	Weight               int32
-	WorkloadAffinityTerm WorkloadAffinityTerm
+	Weight               int32                `json:"weight"`
+	WorkloadAffinityTerm WorkloadAffinityTerm `json:"workloadAffinityTerm"`
 }
 
 type K8SObject struct {
-	metav1.GroupVersionKind
-	Name string
+	Group   string `json:"group" protobuf:"bytes,1,opt,name=group"`
+	Version string `json:"version" protobuf:"bytes,2,opt,name=version"`
+	Kind    string `json:"kind" protobuf:"bytes,3,opt,name=kind"`
+	Name    string `json:"name"`
 }
 
 type WorkloadConditionType string
@@ -118,37 +120,37 @@ const (
 // WorkloadCondition describes the state of a workload at a certain point.
 type WorkloadCondition struct {
 	// Type of replica set condition.
-	Type WorkloadConditionType
+	Type WorkloadConditionType `json:"type"`
 	// Status of the condition, one of True, False, Unknown.
-	Status core.ConditionStatus
+	Status core.ConditionStatus `json:"status"`
 	// The last time the condition transitioned from one status to another.
 	// +optional
-	LastTransitionTime metav1.Time
+	LastTransitionTime metav1.Time `json:"lastTransitionTime"`
 	// The reason for the condition's last transition.
 	// +optional
-	Reason string
+	Reason string `json:"reason"`
 	// A human readable message indicating details about the transition.
 	// +optional
-	Message string
+	Message string `json:"message"`
 }
 
 type K8SObjectStatus struct {
-	Reference core.ObjectReference
+	Reference core.ObjectReference `json:"reference"`
 
 	// Scheduled specifies whether the resource is scheduled.
-	Scheduled bool
+	Scheduled bool `json:"scheduled"`
 
 	// Ready specifies whether the resource is ready.
-	Ready bool
+	Ready bool `json:"ready"`
 
 	// Deleted
-	Deleted bool
+	Deleted bool `json:"deleted"`
 
 	// Replicas
-	Replicas int32
+	Replicas int32 `json:"replicas"`
 
 	// ReadyReplicas
-	ReadyReplicas int32
+	ReadyReplicas int32 `json:"readyReplicas"`
 }
 
 //+kubebuilder:object:root=true
